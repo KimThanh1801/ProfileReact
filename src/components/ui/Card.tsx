@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState } from "react"
-import { Mail, Linkedin, Github, Twitter } from "lucide-react"
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -20,12 +19,6 @@ export default function Contact() {
     setFormData({ name: "", email: "", message: "" })
   }
 
-  const socialLinks = [
-    { icon: Github, label: "GitHub", href: "#" },
-    { icon: Linkedin, label: "LinkedIn", href: "#" },
-    { icon: Twitter, label: "Twitter", href: "#" },
-    { icon: Mail, label: "Email", href: "#" },
-  ]
 
   return (
     <section id="contact" className="py-24 px-4 bg-secondary/30">
@@ -37,73 +30,61 @@ export default function Contact() {
           <p className="text-lg text-muted-foreground font-light">
             I'd love to hear from you. Send me a message or connect on social media.
           </p>
+      </div>
 
-          {/* Social links */}
-          <div className="flex justify-center gap-4 mt-6">
-            {socialLinks.map((link) => {
-              const Icon = link.icon
-              return (
-                <a key={link.label} href={link.href} aria-label={link.label} className="text-primary hover:text-primary/80">
-                  <Icon className="w-6 h-6" />
-                </a>
-              )
-            })}
-          </div>
+      <form onSubmit={handleSubmit} className="bg-background rounded-2xl p-8 border border-border shadow-md mb-12">
+        {/* Name input */}
+        <div className="mb-6">
+          <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Name</label>
+          <input
+            data-testid="name-input"
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Your name"
+            required
+            className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          />
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-background rounded-2xl p-8 border border-border shadow-md mb-12">
-          {/* Name input */}
-          <div className="mb-6">
-            <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Name</label>
-            <input
-              data-testid="name-input"
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your name"
-              required
-              className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-          </div>
+        {/* Email input */}
+        <div className="mb-6">
+          <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Email</label>
+          <input
+            data-testid="email-input"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="your@email.com"
+            required
+            className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
 
-          {/* Email input */}
-          <div className="mb-6">
-            <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Email</label>
-            <input
-              data-testid="email-input"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="your@email.com"
-              required
-              className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-          </div>
+        {/* Message input */}
+        <div className="mb-8">
+          <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Message</label>
+          <textarea
+            data-testid="message-input"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="Your message here..."
+            required
+            className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
 
-          {/* Message input */}
-          <div className="mb-8">
-            <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Message</label>
-            <textarea
-              data-testid="message-input"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Your message here..."
-              required
-              className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full px-6 py-3.5 bg-primary text-primary-foreground rounded-full hover:shadow-lg hover:scale-105 transition-all font-semibold text-sm tracking-wide"
-          >
-            Send Message
-          </button>
-        </form>
-      </div>
-    </section>
+        <button
+          type="submit"
+          className="w-full px-6 py-3.5 bg-primary text-primary-foreground rounded-full hover:shadow-lg hover:scale-105 transition-all font-semibold text-sm tracking-wide"
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
+    </section >
   )
 }
