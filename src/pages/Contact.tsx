@@ -47,39 +47,44 @@ export default function Contact() {
           <div className="mb-6">
             <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Name</label>
             <input
+              data-testid="name-input"
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-light"
               placeholder="Your name"
               required
+              className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+
             />
+
           </div>
 
           <div className="mb-6">
             <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Email</label>
             <input
+              data-testid="email-input"
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-light"
               placeholder="your@email.com"
               required
+              className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
           <div className="mb-8">
             <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Message</label>
             <textarea
+              data-testid="message-input"
               name="message"
               value={formData.message}
               onChange={handleChange}
-              rows={6}
-              className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none font-light"
               placeholder="Your message here..."
               required
+              className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+
             />
           </div>
 
