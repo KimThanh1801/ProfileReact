@@ -1,62 +1,109 @@
-import type * as React from "react"
-import { cn } from "../lib/utils"
+"use client"
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+import React, { useState } from "react"
+import { Mail, Linkedin, Github, Twitter } from "lucide-react"
+
+export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log("Form submitted:", formData)
+    setFormData({ name: "", email: "", message: "" })
+  }
+
+  const socialLinks = [
+    { icon: Github, label: "GitHub", href: "#" },
+    { icon: Linkedin, label: "LinkedIn", href: "#" },
+    { icon: Twitter, label: "Twitter", href: "#" },
+    { icon: Mail, label: "Email", href: "#" },
+  ]
+
   return (
-    <div
-      data-slot="card"
-      className={cn(
-        "bg-card/50 text-card-foreground flex flex-col gap-6 rounded-xl border border-white/10 py-6 shadow-sm backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:border-white/20",
-        className,
-      )}
-      {...props}
-    />
+    <section id="contact" className="py-24 px-4 bg-secondary/30">
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center mb-16">
+          <span className="text-sm font-semibold text-primary tracking-widest uppercase">Get in Touch</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mt-3 tracking-tight">Let's Connect</h2>
+          <div className="w-12 h-1 bg-primary mx-auto mt-4 rounded-full mb-6" />
+          <p className="text-lg text-muted-foreground font-light">
+            I'd love to hear from you. Send me a message or connect on social media.
+          </p>
+
+          {/* Social links */}
+          <div className="flex justify-center gap-4 mt-6">
+            {socialLinks.map((link) => {
+              const Icon = link.icon
+              return (
+                <a key={link.label} href={link.href} aria-label={link.label} className="text-primary hover:text-primary/80">
+                  <Icon className="w-6 h-6" />
+                </a>
+              )
+            })}
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="bg-background rounded-2xl p-8 border border-border shadow-md mb-12">
+          {/* Name input */}
+          <div className="mb-6">
+            <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Name</label>
+            <input
+              data-testid="name-input"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your name"
+              required
+              className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          {/* Email input */}
+          <div className="mb-6">
+            <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Email</label>
+            <input
+              data-testid="email-input"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="your@email.com"
+              required
+              className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          {/* Message input */}
+          <div className="mb-8">
+            <label className="block text-foreground mb-2 font-semibold text-sm tracking-wide">Message</label>
+            <textarea
+              data-testid="message-input"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Your message here..."
+              required
+              className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full px-6 py-3.5 bg-primary text-primary-foreground rounded-full hover:shadow-lg hover:scale-105 transition-all font-semibold text-sm tracking-wide"
+          >
+            Send Message
+          </button>
+        </form>
+      </div>
+    </section>
   )
 }
-
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-header"
-      className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
-        className,
-      )}
-      {...props}
-    />
-  )
-}
-
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-title"
-      className={cn("leading-none font-semibold text-lg tracking-tight", className)}
-      {...props}
-    />
-  )
-}
-
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="card-description" className={cn("text-muted-foreground text-sm", className)} {...props} />
-}
-
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-action"
-      className={cn("col-start-2 row-span-2 row-start-1 self-start justify-self-end", className)}
-      {...props}
-    />
-  )
-}
-
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="card-content" className={cn("px-6", className)} {...props} />
-}
-
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="card-footer" className={cn("flex items-center px-6 [.border-t]:pt-6", className)} {...props} />
-}
-
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
